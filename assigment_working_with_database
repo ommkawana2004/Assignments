@@ -78,3 +78,49 @@ Here is what a simplified `Orders` **Table** would look like:
 `Restaurant_Name` **Column**.
 * If you want to know all the details about Amit's specific order, you read horizontally across 
 his single **Row**.
+
+
+
+# Session 2 select statement basics
+
+1. CREATE TABLE MusicPlaylist 
+(
+    MusicPlaylist_id int PRIMARY KEY AUTO_INCREMENT,
+    song_name varchar(100),
+    artist varchar(101),
+    genre varchar(99),
+    duration float
+)
+1b. INSERT INTO MusicPlaylist (MusicPlaylist_id, song_name, artist, genre, duration)
+VALUES (null, 'Blinding Lights', 'The Weeknd', 'Synthwave', 3.20),
+       (null, 'Shape of You', 'Ed Sheeran', 'Pop', 3.53),
+       (null, 'Stay', 'Kid LAROI & Justin Bieber', 'Pop', 2.21),
+       (null, 'Levitating', 'Dua Lipa', 'Nu-Disco', 3.23),
+       (null, 'Bad Habits', 'Ed Sheeran', 'Dance-Pop', 3.51);
+
+1c. SELECT * FROM MusicPlaylist         
+
+2. SELECT song_name, artist
+FROM musicplaylist limit 3
+
+
+
+3. SELECT DISTINCT restaurant 
+FROM FoodOrders;
+
+
+4. SELECT food_item AS "Dish", 
+order_date AS "Date Ordered" 
+FROM FoodOrders;
+
+
+5.
+ SELECT DISTINCT food_item, restaurant FROM FoodOrders LIMIT 2,
+
+there error in this query, correct it and write the correct query
+
+ SELECT DISTINCT food_item, restaurant FROM FoodOrders LIMIT 2;
+ 
+the error in the original query was the comma after LIMIT 2, which is not needed. The corrected query is:
+SELECT DISTINCT food_item, restaurant FROM FoodOrders LIMIT 2;
+
