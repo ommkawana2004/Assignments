@@ -1,0 +1,80 @@
+
+Session=1 database introduction and sql basics
+
+'''
+1. CREATE database music_streaming_app
+'''
+
+'''
+2. CREATE TABLE playlists
+(
+    playlist_id int PRIMARY KEY AUTO_INCREMENT,
+    name varchar(200),
+    created_by varchar(201)
+)
+
+ '''
+
+ '''
+3.  INSERT INTO playlists(playlist_id, name, created_by)
+VALUES(null, 'Bollywood Hit', 'Amit'),
+      (null, 'Chill Vibes', 'Neha'),
+      (null, 'workout mix', 'Rahul')
+'''
+
+'''
+4. SELECT * FROM playlists
+where created_by = 'Amit'
+
+'''
+
+'''
+5. Think of a database like a highly organized digital filing cabinet for a food delivery 
+app like Zomato. To keep millions of data points organized and searchable, SQL uses **Tables**,
+ **Columns**, and **Rows**.
+
+Here is how they break down using Zomato as an example:
+
+### 1. Table (The Master List)
+
+A **Table** is a complete collection of related data organized around a single topic. You can
+ think of it as one individual spreadsheet in a larger workbook.
+
+* **Zomato Example:** Zomato needs to track many different entities, so they would have separate
+ tables for `Users`, `Restaurants`, `Menu_Items`, and `Orders`. Let's focus on the `Orders` table.
+
+### 2. Column (The Categories / Attributes)
+
+A **Column** runs vertically (up and down) and defines the *type* of information being collected.
+ Every piece of data placed inside a specific column must share the same format (e.g., all numbers, all text, all dates).
+
+* **Zomato Example:** In our `Orders` table, the columns are the required categories needed to 
+process a delivery: **Order_ID**, **Restaurant_Name**, **Customer_Name**, and **Total_Price**.
+
+### 3. Row (The Individual Record)
+
+A **Row** runs horizontally (left to right) and represents one single, specific instance of 
+data. It contains exactly one piece of information for every column in the table.
+
+* **Zomato Example:** A single row in the `Orders` table tells the complete story of 
+*one specific customer's dinner delivery*.
+
+---
+
+### Bringing it all together:
+
+Here is what a simplified `Orders` **Table** would look like:
+
+| Order_ID *(Column)* | Restaurant_Name *(Column)* | Customer_Name *(Column)* | Total_Price *(Column)* |
+| --- | --- | --- | --- |
+| **101** | **Burger King** | **Amit** | **₹350** |
+| 102 | Pizza Hut | Neha | ₹850 |
+| 103 | Subway | Rahul | ₹200 |
+
+**Summary:**
+
+* The entire grid itself is the **Table**.
+* If you want to see a list of every restaurant that was ordered from today, you would look vertically down the 
+`Restaurant_Name` **Column**.
+* If you want to know all the details about Amit's specific order, you read horizontally across 
+his single **Row**.
