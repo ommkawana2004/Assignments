@@ -388,3 +388,52 @@ CREATE TABLE users_error (
     phone_number VARCHAR(20) UNIQUE
 );
 ```
+
+
+
+
+Session 3: INSERT, UPDATE & DELETE
+
+
+```
+1.CREATE TABLE Playlist 
+(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    song_name VARCHAR(255),
+    artist VARCHAR(255),
+    duration INT
+);
+
+INSERT INTO Playlist (id, song_name, artist, duration) 
+VALUES (null, 'Levitating', 'Dua Lipa', 203);
+```
+
+
+```
+2. INSERT INTO Playlist (id, song_name, artist, duration) 
+VALUES 
+    (null, 'Tum Hi Ho', 'Arjit Singh', 262),
+    (null, 'Brown Munde', 'AP Dhillon', 195),
+    (null, 'Interlude', 'Unknown Artist', 90);
+```
+
+
+```
+3.  UPDATE Playlist
+    SET artist = 'Arijit Singh'
+    WHERE artist = 'Arjit Singh';
+```
+
+
+```
+4. DELETE FROM Playlist
+WHERE duration < 120;
+```
+
+
+```
+5. UPDATE Playlist
+SET song_name = CONCAT(song_name, ' (Remix)')
+WHERE artist = 'AP Dhillon' AND duration > 180;
+```
+
