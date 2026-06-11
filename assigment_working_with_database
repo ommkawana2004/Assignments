@@ -169,3 +169,39 @@ INSERT INTO Restaurants (name, cuisine, rating, city) VALUES
 ```
 5. select * from restaurants where cuisine IN ('chinese', 'italian', 'south indian') 
 '''
+
+
+
+
+# SESSION 6 - ORDER BY + Sorting
+
+
+
+
+```
+1. SELECT * FROM products ORDER BY price ASC;
+```
+
+```
+2. SELECT * FROM products
+ORDER BY price DESC
+LIMIT 5;
+```
+
+```
+3. SELECT * FROM movies
+ORDER BY release_year DESC, rating DESC;
+```
+
+```
+4. SELECT * FROM restaurants
+ORDER BY name ASC
+LIMIT 10;
+```
+
+```
+5. SELECT * FROM songs
+ORDER BY play_count DESC, added_date DESC
+LIMIT 3;
+```
+
