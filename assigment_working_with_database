@@ -327,3 +327,64 @@ GROUP BY user_id
 HAVING SUM(amount) > 800;
 ```
 
+
+
+
+
+Session - 2: Database Setup + CREATE TABLE
+
+
+```
+2. CREATE DATABASE foodie_app;
+```
+
+```
+3. CREATE TABLE restaurants
+ (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    cuisine VARCHAR(50),
+    rating float,
+    location VARCHAR(100)
+);
+```
+
+```
+4. CREATE TABLE users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50),
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone_number VARCHAR(20) UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+```
+5.
+```
+ CREATE TABLE users_error (
+    user_id INT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL  -- Intentional Error: Missing comma here
+    phone_number VARCHAR(20) UNIQUE
+);
+```
+Expected Error Message:
+If using MySQL, you will receive an error similar to:
+
+**ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds
+to your MySQL server version for the right syntax to use near 'phone_number VARCHAR(20) UNIQUE)'
+at line 5**
+
+The Correction:
+Simply add the missing comma back at the end of line 4 to resolve the syntax error and run
+the query successfully.
+
+```
+CREATE TABLE users_error (
+    user_id INT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL, -- Correction: Comma added
+    phone_number VARCHAR(20) UNIQUE
+);
+```
