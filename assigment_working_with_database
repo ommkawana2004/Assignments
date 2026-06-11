@@ -255,3 +255,75 @@ WHERE total_amount IS NOT NULL;
 ```
 
 
+
+ESSION 8 - GROUP BY + HAVING
+
+
+```
+1. CREATE TABLE Orders (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    payment_method VARCHAR(100),
+    amount INT 
+);
+
+INSERT INTO Orders (order_id, user_id, payment_method, amount)
+VALUES
+(null, 101, 'UPI', 500),
+(null, 102, 'Card', 250),
+(null, 101, 'Wallet', 400),
+(null, 103, 'COD', 350),
+(null, 102, 'UPI', 600),
+(null, 104, 'Card', 200),
+(null, 103, 'UPI', 700),
+(null, 105, 'Wallet', 450);
+```
+
+
+```
+2. SELECT payment_method, COUNT(*) AS order_count
+FROM Orders
+GROUP BY payment_method; 
+```
+
+
+```
+3.SELECT user_id, SUM(amount) AS total_spend
+FROM Orders
+GROUP BY user_id;
+```
+
+
+```
+4. SELECT payment_method, AVG(amount) AS avg_amount
+FROM Orders
+GROUP BY payment_method
+HAVING AVG(amount) > 300;
+```
+
+
+```
+5.  WHERE
+Filters individual rows before grouping.
+Cannot use aggregate functions directly.
+
+Example: Show orders with amount greater than 300
+
+```
+SELECT * FROM Orders
+WHERE amount > 300;
+```
+
+  HAVING 
+Filters groups after GROUP BY.
+Used with aggregate functions such as COUNT(), SUM(), AVG().
+
+Example: Show users whose total spending is greater than 800
+
+```
+SELECT user_id, SUM(amount) AS total_spend
+FROM Orders
+GROUP BY user_id
+HAVING SUM(amount) > 800;
+```
+
