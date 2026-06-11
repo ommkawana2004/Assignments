@@ -120,7 +120,52 @@ FROM FoodOrders;
 there error in this query, correct it and write the correct query
 
  SELECT DISTINCT food_item, restaurant FROM FoodOrders LIMIT 2;
- 
+
 the error in the original query was the comma after LIMIT 2, which is not needed. The corrected query is:
 SELECT DISTINCT food_item, restaurant FROM FoodOrders LIMIT 2;
 
+
+
+# Session 5 Where clause + like
+
+
+```
+1.CREATE table restaurants 
+(
+    resid int PRIMARY KEY AUTO_INCREMENT,
+    name varchar(111),
+    cuisine varchar(100),
+    rating float,
+    city varchar(99)
+)
+```
+1b. 
+```
+INSERT INTO Restaurants (name, cuisine, rating, city) VALUES
+('Swagat Dining', 'North Indian', 4.2, 'Ahmedabad'),
+('Honest Restaurant', 'Fast Food', 3.8, 'Rajkot'),
+('Swadisht', 'South Indian', 4.6, 'Surat'),
+('Dragon Wok', 'Chinese', 4.1, 'Ahmedabad'),
+('Little Italy', 'Italian', 3.9, 'Surat')
+
+```
+
+```
+2.
+
+   SELECT * FROM restaurants
+   where rating > 4.0 and
+   (city = 'ahmedabad' or city = 'surat');
+```
+
+```
+3.  SELECT * FROM restaurants where name LIKE 'swa%' 
+```
+
+```
+4. select * from restaurants where rating between 3.5 and 4.5 
+```
+
+```
+5. select * from restaurants where cuisine IN ('chinese', 'italian', 'south indian') 
+'''
