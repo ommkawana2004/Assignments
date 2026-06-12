@@ -437,3 +437,75 @@ SET song_name = CONCAT(song_name, ' (Remix)')
 WHERE artist = 'AP Dhillon' AND duration > 180;
 ```
 
+
+
+
+# SESSION 11 : Subqueries
+
+```
+1.  SELECT  r1.name, r1.city,  r1.rating
+    FROM Restaurants r1
+    WHERE r1.rating > 
+(
+    SELECT AVG(r2.rating)
+    FROM Restaurants r2
+    WHERE r1.city = r2.city
+);
+```
+
+```
+2.  SELECT 
+    u.name,
+    (
+        SELECT COUNT(*) 
+        FROM Orders o 
+        WHERE o.user_id = u.user_id
+    )
+     AS total_orders
+     FROM Users u;
+```
+
+
+```
+3. SELECT title
+   FROM Movies
+   WHERE id IN  
+(
+    SELECT movie_id
+    FROM Reviews
+    WHERE rating = 5
+);
+```
+
+
+```
+4. SELECT s.name
+FROM Sellers  s
+WHERE 
+(
+    SELECT COUNT(DISTINCT p.category_id)
+    FROM Products p
+    WHERE p.seller_id = s.id
+) = (
+    
+    SELECT COUNT(*)
+    FROM Categories
+);
+
+4b.
+   SELECT s.name
+   FROM Sellers s
+   WHERE NOT EXISTS   
+   (
+        SELECT c.id
+        FROM Categories c
+        WHERE NOT EXISTS  
+(
+        SELECT p.id
+        FROM Products p
+        WHERE p.seller_id = s.id 
+        AND p.category_id = c.id
+    )
+);
+```
+
