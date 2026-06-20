@@ -593,4 +593,84 @@ FROM playlists
 LEFT JOIN songs  
     ON playlists.playid = songs.playid; 
     ```
-     
+
+
+
+# SESSION 10 - JOINS - Part 2
+ 
+
+ 1.
+ ```
+CREATE TABLE Influencers 
+(
+    id INT PRIMARY KEY,
+    name VARCHAR(255)
+);
+
+CREATE TABLE Collaborations
+ (
+    id INT PRIMARY KEY,
+    influencer1_id INT,
+    influencer2_id INT,
+    collab_date DATE
+);
+
+
+SELECT 
+
+    i1.name AS Influencer, 
+    i2.name AS Partner_Name, 
+    c.collab_date
+FROM Influencers i1
+FULL JOIN Collaborations c 
+    ON i1.id = c.influencer1_id
+FULL JOIN Influencers i2 
+    ON c.influencer2_id = i2.id;
+
+    ```
+
+  2.
+  ```
+  SELECT 
+    p1.playlist_name AS Playlist,
+    p2.playlist_name AS Parent_Playlist
+FROM Playlists p1
+LEFT JOIN Playlists p2 
+    ON p1.parent_playlist_id = p2.id;
+    ```
+
+ 3.
+    ```
+SELECT 
+      u.username, 
+      o.order_date, 
+      p.amount
+FROM Users u
+LEFT JOIN Orders o 
+      ON u.id = o.user_id
+LEFT JOIN Payments p 
+      ON o.id = p.order_id;
+    ```
+
+4. 
+```
+SELECT DISTINCT r.id, r.name
+FROM Restaurants r
+INNER JOIN Reviews rev 
+    ON r.id = rev.restaurant_id;
+```
+
+5.
+```
+  SELECT p.product_name, c.category_name
+FROM Products p
+  INNER JOIN Categories c 
+     ON p.category_id = c.id;
+
+
+     SELECT p.product_name, c.category_name
+FROM Products p, Categories c
+WHERE p.category_id = c.id;
+
+```
+
