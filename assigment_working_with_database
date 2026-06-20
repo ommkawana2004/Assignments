@@ -509,3 +509,88 @@ WHERE
 );
 ```
 
+
+
+
+# SESSION 9 - JOINS - Part 1
+
+```
+1. 
+  CREATE TABLE restaurants 
+  (
+     resid INT PRIMARY KEY AUTO_INCREMENT,
+     name VARCHAR(255),
+     city VARCHAR(100)
+  ); 
+
+
+  CREATE TABLE dishes 
+  (
+      dishid INT PRIMARY KEY AUTO_INCREMENT,
+      resid INT,
+      dish_name VARCHAR(255),
+      price DECIMAL(10, 2)
+  );
+
+
+  INSERT INTO restaurants (resid, name, city) VALUES
+  (null, 'Spice Symphony', 'Mumbai'),
+  (null, 'Burger Barn', 'Delhi'),
+  (null, 'The Empty Plate', 'Bangalore'); 
+
+
+  INSERT INTO dishes (dishid, resid, dish_name, price) VALUES
+   (null, 1, 'Paneer Tikka', 250.00),
+   (null, 1, 'Butter Chicken', 350.00),
+   (null, 1, 'Garlic Naan', 60.00),
+   (null, 2, 'Classic Cheeseburger', 180.00),
+   (null, 2, 'Loaded Fries', 120.00)
+
+   ```
+   
+
+
+  2.
+  ```
+  SELECT 
+    dishes.dish_name, 
+    dishes.price, 
+    restaurants.name AS restaurant_name, 
+    restaurants.city
+ FROM dishes 
+ INNER JOIN restaurants  
+    ON dishes.resid = restaurants.resid;  
+    ```
+
+  3.
+  ```
+  SELECT 
+    restaurants.name AS restaurant_name, 
+    dishes.dish_name, 
+    dishes.price
+FROM restaurants 
+LEFT JOIN dishes  
+    ON restaurants.resid = dishes.resid;  
+    ```
+
+
+4.
+```
+SELECT 
+    dishes.dish_name, 
+    restaurants.name AS restaurant_name
+FROM restaurants 
+RIGHT JOIN dishes 
+    ON restaurants.resid = dishes.resid;
+    ```
+
+  5.
+  ```
+  SELECT 
+    playlists.playlist_name, 
+    songs.song_title
+FROM playlists 
+LEFT JOIN songs  
+    ON playlists.playid = songs.playid; 
+    ```
+     
