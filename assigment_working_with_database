@@ -972,3 +972,82 @@ ORDER BY user_id, order_date;
 FROM Orders
 ORDER BY user_id, order_date;
 ```
+
+
+# SESSION 16 : SQL Project - Sales Analysis
+
+
+
+```
+1. CREATE TABLE FoodOrders (
+    order_id INT PRIMARY KEY,
+    restaurant_name VARCHAR(150),
+    customer_name VARCHAR(100),
+    order_amount DECIMAL(10, 2)
+    order_date DATE
+);
+```
+```
+COPY FoodOrders(order_id, restaurant_name, customer_name, order_amount, order_date)
+FROM '/path/to/your/file.csv'
+DELIMITER ','
+CSV HEADER;
+```
+
+
+```
+2.  CREATE TABLE TopSongs 
+(
+     song_id INT PRIMARY KEY AUTO_INCREMENT,
+     song_title VARCHAR(150),
+     artist VARCHAR(100),
+     streams BIGINT,
+     release_date DATE
+);
+
+INSERT INTO TopSongs (song_id, song_title, artist, streams, release_date) VALUES
+(null, 'Blinding Lights', 'The Weeknd', 4100000000, '2019-11-29'),
+(null, 'Shape of You', 'Ed Sheeran', 3800000000, '2017-01-06'),
+(null, 'Someone You Loved', 'Lewis Capaldi', 3200000000, '2018-11-08'),
+(null, 'Sunflower', 'Post Malone & Swae Lee', 3100000000, '2018-10-18'),
+(null, 'As It Was', 'Harry Styles', 2900000000, '2022-04-01');
+```
+
+
+```
+3.  SELECT 
+      customer_name,
+      SUM(order_amount) AS total_spent
+FROM FoodOrders
+GROUP BY customer_name
+ORDER BY total_spent DESC
+LIMIT 3;
+```
+
+
+```
+4.  SELECT 
+    restaurant_name,
+    COUNT(order_id) AS total_orders,
+    SUM(order_amount) AS total_revenue
+FROM FoodOrders
+GROUP BY restaurant_name
+ORDER BY total_revenue DESC;
+```
+
+
+```
+5.  SELECT 
+    'Average Order Amount' AS kpi_name,
+    CAST(ROUND(AVG(order_amount), 2) AS VARCHAR(50)) AS kpi_value
+FROM FoodOrders
+
+UNION ALL
+
+SELECT 
+    'Total Unique Customers' AS kpi_name,
+    CAST(COUNT(DISTINCT customer_name) AS VARCHAR(50)) AS kpi_value
+FROM FoodOrders;
+```
+
+
