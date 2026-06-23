@@ -793,3 +793,79 @@ WHERE followers > 1000
 ORDER BY followers DESC;
 ```
 
+
+
+
+# SESSION 13 : Window Functions - Part 1
+
+
+```
+1.CREATE TABLE Playlists 
+(
+    playid INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    playlist_name VARCHAR(100),
+    total_likes INT
+);
+
+INSERT INTO Playlists (playid, user_id, playlist_name, total_likes) VALUES
+(null, 101, 'Chill Vibes', 1500),
+(null, 101, 'Workout Hits', 2500),
+(null, 101, 'Focus Study', 1500),
+(null, 102, 'Rock Classics', 5000),
+(null, 102, 'Indie Mix', 300),
+(null, 103, 'Top 50 Global', 12000),
+(null, 103, 'Acoustic Covers', 800),
+(null, 103, 'Road Trip', 800);
+```
+
+
+
+```
+2. SELECT 
+    playid, 
+    user_id, 
+    playlist_name, 
+    total_likes,
+    ROW_NUMBER() OVER(ORDER BY total_likes DESC) AS row_num
+FROM Playlists;
+```
+
+
+```
+3.SELECT 
+    playlist_name, 
+    user_id, 
+    total_likes,
+    RANK() OVER(ORDER BY total_likes DESC) AS overall_rank
+FROM Playlists;
+```
+
+
+```
+4. SELECT 
+    playlist_name, 
+    user_id, 
+    total_likes,
+    DENSE_RANK() OVER(PARTITION BY user_id ORDER BY total_likes DESC) AS user_playlist_rank
+FROM Playlists;
+```
+
+
+```
+5. WITH RankedUserPlaylists AS 
+(
+    SELECT 
+        playlist_name, 
+        user_id, 
+        total_likes,
+        ROW_NUMBER() OVER(PARTITION BY user_id ORDER BY total_likes DESC) AS rank_position
+    FROM Playlists
+)
+SELECT 
+    playlist_name, 
+    user_id, 
+    total_likes
+FROM RankedUserPlaylists
+WHERE rank_position <= 2;
+```
