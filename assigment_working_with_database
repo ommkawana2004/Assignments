@@ -1051,3 +1051,86 @@ FROM FoodOrders;
 ```
 
 
+
+# Case- Study Dataset: Zomato Bangalore Restaurants – Kaggle Kaggle+ Goal As a Data Analyst for Zomato Bangalore, 
+use SQL to help business teams answer key questions around restaurant performance, pricing, ratings, customer 
+preferences, and market segmentation. The outcome should guide marketing, partnerships, and strategic expansion decisions.
+
+
+
+```
+1. SELECT 
+     name, 
+     rate, 
+     votes
+  FROM zomato_bangalore
+  WHERE listed_in_location LIKE '%Koramangala%'
+      AND cuisines LIKE '%North Indian%'
+      AND rate IS NOT NULL AND rate != 'NEW' AND rate != '-'
+ORDER BY CAST(SUBSTRING_INDEX(rate, '/', 1) AS DECIMAL(3,1)) DESC
+LIMIT 5; 
+```
+
+
+```
+2. SELECT 
+     cuisines,
+     ROUND(AVG(CAST(REPLACE(approx_cost_for_two, ',', '') AS UNSIGNED)), 2) AS avg_cost_for_two
+FROM zomato_bangalore
+WHERE approx_cost_for_two IS NOT NULL 
+     AND approx_cost_for_two != ''
+GROUP BY cuisines
+ORDER BY avg_cost_for_two DESC
+LIMIT 3; 
+```
+
+
+```
+3. SELECT 
+      name, 
+      listed_in_location AS location, 
+      cuisines, 
+      approx_cost_for_two AS cost,
+      rate
+FROM zomato_bangalore
+WHERE online_order = 'Yes'
+      AND rate IS NOT NULL AND rate != 'NEW' AND rate != '-'
+      AND CAST(SUBSTRING_INDEX(rate, '/', 1) AS DECIMAL(3,1)) < 3.0
+ORDER BY rate ASC;
+```
+    #  Audit Packaging & Delivery Times: Low delivery ratings are frequently driven by cold food, leaks,
+       or missing items. Zomato can offer these partner restaurants data insights on their "average preparation time" and customer complaints.
+
+       Menu Optimization: High-complexity menus often suffer during delivery.  
+       Advise these restaurants to streamline their online menu to focus only on items that travel well.
+
+      The "Review Rehabilitation" Campaign: Launch a targeted email/push notification campaign offering high-value discounts
+      (e.g., "Give us a second chance—30% off") to customers who previously left poor ratings, paired with a prompt to re-rate
+       if their experience has improved.
+
+
+
+```
+4. SELECT 
+    CASE 
+        WHEN CAST(REPLACE(approx_cost_for_two, ',', '') AS UNSIGNED) < 400 THEN 'Budget'
+        WHEN CAST(REPLACE(approx_cost_for_two, ',', '') AS UNSIGNED) BETWEEN 400 AND 800 THEN 'Mid-Range'
+        ELSE 'Premium'
+    END AS market_segment,
+    COUNT(*) AS restaurant_count
+FROM zomato_bangalore
+WHERE approx_cost_for_two IS NOT NULL AND approx_cost_for_two != ''
+GROUP BY market_segment
+ORDER BY restaurant_count DESC;
+```
+
+
+```
+5. SELECT 
+    name AS chain_name,
+    COUNT(*) AS outlet_count
+FROM zomato_bangalore
+GROUP BY name
+ORDER BY outlet_count DESC
+LIMIT 10;
+```
