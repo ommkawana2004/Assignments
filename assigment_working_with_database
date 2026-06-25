@@ -1248,3 +1248,60 @@ FROM (
     GROUP BY r.id, r.name, r.cuisine
 ) AS ratings;
 ```
+
+
+# SESSION 18 : Interview Questions + Final Revision
+
+
+```
+1.   SELECT artist_name, COUNT(song_id) AS total_songs
+  FROM songs
+  GROUP BY artist_name
+  HAVING COUNT(song_id) > 3;
+```
+
+
+```
+2.  SELECT u.username, SUM(o.amount) AS total_order_amount
+    FROM users u
+    JOIN orders o ON u.user_id = o.user_id
+    GROUP BY u.user_id, u.username;
+```
+
+
+```
+3.  SELECT name
+    FROM restaurants
+    WHERE rating > 
+(
+    SELECT AVG(rating) 
+    FROM restaurants
+);
+```
+
+
+```
+4. SELECT 
+    user_id,
+    transaction_date,
+    amount,
+    SUM(amount) OVER (PARTITION BY user_id ORDER BY transaction_date) AS running_total
+FROM transactions;
+```
+
+
+```
+5. Create a Composite Index: Create a B-Tree index on (category, price).
+
+   How it helps: Instead of executing a full table scan (reading every single row), 
+   the database engine uses the index to jump directly to the requested category and then 
+   efficiently evaluates the price range within that category. The order of columns in the index is crucial:
+    place the column queried with equality (category = 'Electronics') before the column queried with a range (price < 500).
+  
+    Only Select Necessary Columns (Avoid SELECT *):
+    Structure your query to specify exact columns (e.g., SELECT product_id, title, price) rather than retrieving all data.
+
+   How it helps: If you only select columns that are included in your index, you create a "Covering Index."
+    The database can satisfy the query entirely from the index without having to look up the actual table rows,
+   significantly reducing disk I/O and network bandwidth overhead.
+``` 
